@@ -12,7 +12,7 @@ Release.
 This instructions will get you a copy of the project up and running on
 your local machine for development and testing purposes.
 
-See [Deployment](##Deployment) for notes on how to deploy the project on a live system.
+See [Deployment](#Deployment) for notes on how to deploy the project on a live system.
 
 ## Prerequisites
 
