@@ -1,11 +1,12 @@
 FROM python:3.7-alpine3.9
 
-COPY ./cave /cave
-COPY ./requirements.txt /cave/requirements.txt
+WORKDIR /app
 
-WORKDIR /cave
+COPY cave ./cave
+COPY requirements.txt ./requirements.txt
+COPY setup.py ./
+COPY governor.py ./
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+ENTRYPOINT ["python", "governor.py", "run", "--host", "0.0.0.0", "-p", "5000"]

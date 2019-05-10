@@ -1,12 +1,21 @@
-from flask import Flask, jsonify
+import os
+from flask import Flask
+from cave.views.health import health_blueprint
+from cave.views.home import home_blueprint
 
-app = Flask(__name__)
+CAVE_BLUEPRINTS = [
+    health_blueprint,
+    home_blueprint,
+]
 
 
-@app.route('/health-check')
-def health_check():
-    return jsonify({"status": "ok"})
+def create_app():
+    app = Flask(__name__)
 
+    config = os.environ.get("APP_CONFIG", "cave.config.DevelopmentConfig")
+    app.config.from_object(config)
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    for blueprint in CAVE_BLUEPRINTS:
+        app.register_blueprint(blueprint)
+
+    return app
